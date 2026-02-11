@@ -1,12 +1,21 @@
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-export const fetchAnimeList = async (limit = 10, offset = 0) => {
+export const fetchAnimeList = async (limit, offset, search = "") => {
+  const params = new URLSearchParams({
+    "page[limit]": limit,
+    "page[offset]": offset,
+  });
+
+  if (search) {
+    params.append("filter[text]", search);
+  }
+
   const response = await fetch(
-    `${BASE_URL}/anime?page[limit]=${limit}&page[offset]=${offset}`,
+    `${import.meta.env.VITE_BASE_URL}/anime?${params}`,
   );
 
   if (!response.ok) {
-    throw new Error("Gagal mengambil daftar anime");
+    throw new Error("gagal mengambil daftar anime");
   }
 
   return response.json();
