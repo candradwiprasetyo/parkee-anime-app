@@ -2,11 +2,12 @@ import { useState } from "react";
 import { useAnimeList } from "../hooks/useAnimeList";
 import { useDebounce } from "../hooks/useDebounce";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 function AnimeListPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(1);
-  const [search, setSearch] = useState("");
+  const search = searchParams.get("search") || "";
 
   const debouncedSearch = useDebounce(search, 500);
 
@@ -28,19 +29,16 @@ function AnimeListPage() {
           placeholder="Search anime..."
           value={search}
           onChange={(e) => {
-            setSearch(e.target.value);
+            setSearchParams(e.target.value ? { search: e.target.value } : {});
             setPage(1);
           }}
-          style={{
-            padding: "8px 36px 8px 8px",
-            width: "100%",
-          }}
+          style={{ marginBottom: "20px", padding: "8px", width: "100%" }}
         />
 
         {search && (
           <button
             onClick={() => {
-              setSearch("");
+              setSearchParams({});
               setPage(1);
             }}
             style={{
