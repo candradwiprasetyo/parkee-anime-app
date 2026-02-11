@@ -3,8 +3,9 @@ import { fetchAnimeList } from "../../../services/kitsuApi";
 
 export const useAnimeList = (page = 1, limit = 10) => {
   const [anime, setAnime] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
     const offset = (page - 1) * limit;
@@ -15,9 +16,16 @@ export const useAnimeList = (page = 1, limit = 10) => {
         setError(null);
 
         const data = await fetchAnimeList(limit, offset);
-        setAnime(data.data);
+
+        if (data.data.length === 0) {
+          setHasMore(false);
+        } else {
+          setAnime((prev) =>
+            page === 1 ? data.data : [...prev, ...data.data],
+          );
+        }
       } catch (err) {
-        setError(`Failed to load anime: ${err.message}`);
+        setError(err.message);
       } finally {
         setLoading(false);
       }
@@ -26,5 +34,5 @@ export const useAnimeList = (page = 1, limit = 10) => {
     getAnime();
   }, [page, limit]);
 
-  return { anime, loading, error };
+  return { anime, loading, error, hasMore };
 };
