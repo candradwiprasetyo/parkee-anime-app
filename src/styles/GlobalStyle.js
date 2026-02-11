@@ -8,14 +8,18 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: ${({ theme }) => theme.colors.background};
+    color: ${({ theme }) => theme.colors.text};
   }
 
-  a {
-    text-decoration: none;
-    color: inherit;
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  button {
+    font-family: inherit;
   }
 `;
 
