@@ -1,55 +1,22 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { fetchAnimeDetail } from "../../../services/kitsuApi";
+import { useParams } from "react-router-dom";
+import { useAnimeDetail } from "../hooks/useAnimeDetail";
+import AnimeDetailView from "./AnimeDetailView";
+import BackButton from "./BackButton";
+import EmptyState from "../../../components/ui/EmptyState";
 
 function AnimeDetailPage() {
   const { id } = useParams();
-  const navigate = useNavigate();
-
-  const [anime, setAnime] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const getDetail = async () => {
-      try {
-        setLoading(true);
-        const data = await fetchAnimeDetail(id);
-        setAnime(data.data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getDetail();
-  }, [id]);
+  const { anime, loading, error } = useAnimeDetail(id);
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
-  if (!anime) return null;
-
-  const attr = anime.attributes;
+  if (error || !anime) {
+    return <EmptyState message={error} />;
+  }
 
   return (
-    <div style={{ padding: "20px" }}>
-      <button onClick={() => navigate(-1)}>← Back</button>
-
-      <div style={{ display: "flex", gap: "20px", marginTop: "20px" }}>
-        <img src={attr.posterImage?.medium} alt={attr.canonicalTitle} />
-
-        <div>
-          <h1>{attr.titles?.en || attr.canonicalTitle}</h1>
-          <h2>{attr.titles?.ja_jp}</h2>
-
-          <p>
-            <strong>Rating:</strong> {attr.averageRating}
-          </p>
-
-          <p style={{ marginTop: "20px" }}>{attr.synopsis}</p>
-        </div>
-      </div>
+    <div>
+      <BackButton />
+      <AnimeDetailView anime={anime} />
     </div>
   );
 }
