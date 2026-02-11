@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAnimeList } from "../hooks/useAnimeList";
 import { useDebounce } from "../hooks/useDebounce";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { Link } from "react-router-dom";
 
 function AnimeListPage() {
   const [page, setPage] = useState(1);
@@ -79,16 +80,23 @@ function AnimeListPage() {
             }}
           >
             {anime.map((item) => (
-              <div key={item.id}>
-                <img
-                  src={item.attributes.posterImage?.small}
-                  alt={item.attributes.canonicalTitle}
-                />
-                <h3>
-                  {item.attributes.titles?.en || item.attributes.canonicalTitle}
-                </h3>
-                <p>{item.attributes.titles?.ja_jp}</p>
-              </div>
+              <Link
+                to={`/anime/${item.id}`}
+                key={item.id}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <div>
+                  <img
+                    src={item.attributes.posterImage?.small}
+                    alt={item.attributes.canonicalTitle}
+                  />
+                  <h3>
+                    {item.attributes.titles?.en ||
+                      item.attributes.canonicalTitle}
+                  </h3>
+                  <p>{item.attributes.titles?.ja_jp}</p>
+                </div>
+              </Link>
             ))}
           </div>
         </InfiniteScroll>
