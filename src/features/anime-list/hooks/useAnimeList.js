@@ -3,7 +3,7 @@ import { fetchAnimeList } from "../../../services/kitsuApi";
 
 export const useAnimeList = (page = 1, limit = 10, search = "") => {
   const [anime, setAnime] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [hasMore, setHasMore] = useState(true);
 

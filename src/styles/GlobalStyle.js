@@ -8,9 +8,13 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: 'Segoe UI', sans-serif;
+    font-family: "Press Start 2P", monospace;
     background-color: ${({ theme }) => theme.colors.background};
     color: ${({ theme }) => theme.colors.text};
+    margin: 0;
+    display: block;
+    background-image: linear-gradient(#ddd 1px, transparent 1px), linear-gradient(90deg, #eee 1px, transparent 1px);
+    background-size: 40px 40px;
   }
 
   img {

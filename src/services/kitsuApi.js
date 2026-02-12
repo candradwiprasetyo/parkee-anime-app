@@ -15,7 +15,7 @@ export const fetchAnimeList = async (limit, offset, search = "") => {
   );
 
   if (!response.ok) {
-    throw new Error("gagal mengambil daftar anime");
+    throw new Error("Oops! The anime list took a day off");
   }
 
   return response.json();
@@ -25,7 +25,7 @@ export const fetchAnimeDetail = async (id) => {
   const response = await fetch(`${BASE_URL}/anime/${id}`);
 
   if (!response.ok) {
-    throw new Error("Gagal mengambil detail anime");
+    throw new Error("Oops! We couldn’t summon the anime details");
   }
 
   return response.json();

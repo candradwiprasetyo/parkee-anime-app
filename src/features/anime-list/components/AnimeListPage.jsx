@@ -6,6 +6,7 @@ import { useSearchParams } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import AnimeGrid from "./AnimeGrid";
 import EmptyState from "../../../components/ui/EmptyState";
+import Header from "../../../components/layout/header";
 
 function AnimeListPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -13,18 +14,20 @@ function AnimeListPage() {
   const search = searchParams.get("search") || "";
   const debouncedSearch = useDebounce(search, 500);
 
-  const { anime, loading, error, hasMore } = useAnimeList(
+  const { anime, error, hasMore, loading } = useAnimeList(
     page,
     10,
     debouncedSearch,
   );
 
-  if (error) return <p>{error}</p>;
+  if (error) return <EmptyState message={error} />;
+
+  const isFirstLoading = loading && page === 1;
+  const isEmpty = !loading && anime.length === 0;
 
   return (
     <>
-      <h1>Anime List</h1>
-
+      <Header />
       <SearchBar
         value={search}
         onChange={(value) => {
@@ -37,14 +40,16 @@ function AnimeListPage() {
         }}
       />
 
-      {!loading && anime.length === 0 ? (
-        <EmptyState message="Anime not found." />
+      {isFirstLoading ? (
+        <AnimeGrid anime={[]} loading />
+      ) : isEmpty ? (
+        <EmptyState message="Sorry we couldn’t find that anime. Try another spell" />
       ) : (
         <InfiniteScroll
           dataLength={anime.length}
           next={() => !loading && setPage((prev) => prev + 1)}
           hasMore={hasMore}
-          loader={<p>Loading...</p>}
+          loader={<p style={{ textAlign: "center" }}>Loading...</p>}
         >
           <AnimeGrid anime={anime} />
         </InfiniteScroll>
