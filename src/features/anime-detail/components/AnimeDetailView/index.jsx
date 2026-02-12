@@ -28,6 +28,8 @@ function AnimeDetailView({ anime }) {
           <RatingSection
             ratingRank={attr.ratingRank}
             popularityRank={attr.popularityRank}
+            startDate={attr.startDate}
+            endDate={attr.endDate}
           />
 
           <SynopsisSection synopsis={attr.synopsis} />
@@ -36,9 +38,9 @@ function AnimeDetailView({ anime }) {
             <Button onClick={() => navigate(-1)}>Back</Button>
           </div>
         </ContentWrapper>
+        <WaveIcon />
+        <CircleIcon />
       </Right>
-      <WaveIcon />
-      <CircleIcon />
     </Container>
   );
 }

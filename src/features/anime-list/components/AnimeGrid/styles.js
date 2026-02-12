@@ -7,12 +7,11 @@ export const Grid = styled.div`
   grid-template-columns: repeat(5, 1fr);
   padding: 32px;
   overflow: hidden;
+  align-items: stretch;
 
   @media (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: 640px) {
-    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 16px;
   }
 `;

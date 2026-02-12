@@ -2,6 +2,9 @@ import styled from "styled-components";
 
 export const Card = styled.div`
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   background: white;
   border: 3px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.radius};
@@ -9,7 +12,6 @@ export const Card = styled.div`
     transform 0.1s ease,
     box-shadow 0.1s ease;
   box-shadow: 4px 4px 0 #bbb;
-  corner-shape: squircle;
   position: relative;
 
   &:hover {
@@ -21,8 +23,8 @@ export const Card = styled.div`
 export const Poster = styled.img`
   width: 100%;
   display: block;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
   image-rendering: pixelated;
   border-bottom: 3px solid ${({ theme }) => theme.colors.border};
 `;
@@ -30,12 +32,24 @@ export const Poster = styled.img`
 export const Content = styled.div`
   padding: 16px;
   text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @media (max-width: 768px) {
+    padding: 8px;
+  }
 `;
 
 export const Title = styled.h3`
   font-size: 16px;
   margin: 0;
   color: ${({ theme }) => theme.colors.primary};
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 `;
 
 export const Subtitle = styled.p`

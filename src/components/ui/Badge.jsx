@@ -16,6 +16,10 @@ const StyledBadge = styled.span`
   right: -16px;
   z-index: 10;
   transform: rotate(5deg);
+
+  @media (max-width: 768px) {
+    right: 16px;
+  }
 `;
 
 function Badge({ children, value }) {

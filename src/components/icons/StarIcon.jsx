@@ -3,12 +3,19 @@ import styled from "styled-components";
 const Svg = styled.svg`
   width: 70px;
   height: 70px;
-  stroke: #fde047;
+  stroke: #edd450;
   position: absolute;
   left: 20%;
   fill: none;
   stroke-width: 3;
   animation: ${({ theme }) => theme.animations.jiggle} 2.5s steps(1) infinite;
+
+  @media (max-width: 768px) {
+    top: 0px;
+    left: 10px;
+    width: 30px;
+    height: 30px;
+  }
 `;
 
 function StarIcon(props) {

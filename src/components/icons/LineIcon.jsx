@@ -10,6 +10,13 @@ const Svg = styled.svg`
   top: 50px;
   stroke-width: 3;
   animation: ${({ theme }) => theme.animations.jiggle} 2.5s steps(1) infinite;
+
+  @media (max-width: 768px) {
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+  }
 `;
 
 function LineIcon(props) {

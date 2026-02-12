@@ -16,6 +16,7 @@ export const PosterSkeleton = styled(SkeletonBlock)`
   width: 100%;
   aspect-ratio: 261 / 372;
   object-fit: cover;
+  border-radius: 12px;
 `;
 
 export const Line = styled(SkeletonBlock)`

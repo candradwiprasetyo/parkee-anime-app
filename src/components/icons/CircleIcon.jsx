@@ -7,6 +7,13 @@ const Svg = styled.svg`
   right: 80px;
   bottom: 80px;
   animation: ${({ theme }) => theme.animations.jiggle} 4s steps(1) infinite;
+
+  @media (max-width: 768px) {
+    right: 30px;
+    bottom: 20px;
+    width: 50px;
+    height: 50px;
+  }
 `;
 
 function CircleIcon(props) {

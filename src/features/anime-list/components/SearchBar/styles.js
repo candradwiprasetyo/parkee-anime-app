@@ -11,6 +11,10 @@ export const Container = styled.div`
   background: white;
   position: relative;
   color: black;
+
+  @media (max-width: 1024px) {
+    margin: 0 16px;
+  }
 `;
 
 export const Input = styled.input`
